@@ -57,7 +57,7 @@ def register():
 
     nombre_foto = "FotoDePerfil1"
     # con el nombre de usuario, asignar nombre a la foto
-    url_foto = "https://practica2-g4-imagenes.s3.us-east-2.amazonaws.com/" + "Fotos_Publicadas/" + user + nombre_foto + ".jpg"
+    url_foto = "https://practica2-semi1-b-2s2024-imageness-g4.s3.amazonaws.com/" + "Fotos_Perfil/" + user + nombre_foto + ".jpg"
 
     # Subir al bucket S3
     # upload_file(url, nombre_foto, user)
