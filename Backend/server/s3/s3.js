@@ -3,8 +3,8 @@ const { DatabaseError } = require("pg");
 require("dotenv").config();
 
 const s3 = new aws.S3({
-  //accessKeyId: ,
-  // secretAccessKey: ,
+  accessKeyId: "AKIAZMBSHQXGVXKNFOXA",
+  secretAccessKey: "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",
 });
 
 const uploadPicture = async (picture, nombre, usuario) => {

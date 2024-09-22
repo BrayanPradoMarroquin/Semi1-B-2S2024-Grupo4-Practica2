@@ -6,6 +6,8 @@ import base64
 
 # aqui tambien os.environ['AWS_ACCESS_KEY_ID']
 # aqui van las claves os.environ['AWS_SECRET_ACCESS_KEY']
+os.environ['AWS_ACCESS_KEY_ID'] = 'AKIAZMBSHQXGVXKNFOXA'
+os.environ['AWS_SECRET_ACCESS_KEY'] = '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'
 
 def upload_file(picture, nombre, usuario):
     pictureName = "Fotos_Perfil/" + usuario + nombre + ".jpg"
