@@ -29,7 +29,7 @@ def login():
         
         # obtener user id
         query = f"SELECT id_usuario FROM usuario WHERE usuario = '{user}' AND clave = '{password}';"
-        # print("print ",data)
+        print("print ",data)
         cursor.execute(query)
         
         result_sets = cursor.fetchone()
