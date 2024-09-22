@@ -267,7 +267,7 @@
       // Verificar si el valor existe y no es nulo
       if (userId) {
         var url =
-          "http://localhost:4000/perfil/" +
+          "http://balanceadorpractica2-564007876.us-east-1.elb.amazonaws.com/perfil/" +
           userId;
 
         var settings = {
@@ -296,7 +296,7 @@
       console.log(userId);
 
       var settings = {
-        url: "http://localhost:4000/album/obtener/" + userId,
+        url: "http://balanceadorpractica2-564007876.us-east-1.elb.amazonaws.com/album/obtener/" + userId,
         method: "GET",  // GET no requiere un cuerpo en la solicitud
         timeout: 0,
         headers: {
@@ -343,7 +343,7 @@
       var idAlbum = albumSelect.value;
       var settings = {
         url:
-          "http://localhost:4000/album/eliminar/" +
+          "http://balanceadorpractica2-564007876.us-east-1.elb.amazonaws.com/album/eliminar/" +
           userId,
         method: "POST",
         timeout: 0,
@@ -384,7 +384,7 @@
       var nombreAlbum = $("#nombre_album").val();
       var settings = {
         url:
-          "http://localhost:4000/album/crear/" +
+          "http://balanceadorpractica2-564007876.us-east-1.elb.amazonaws.com/album/crear/" +
           userId,
         method: "POST",
         timeout: 0,
@@ -428,7 +428,7 @@
       var selectedAlbumValue = albumSelect.value;
       var settings = {
         url:
-          "http://localhost:4000/album/editar/" +
+          "http://balanceadorpractica2-564007876.us-east-1.elb.amazonaws.com/album/editar/" +
           userId,
         method: "POST",
         timeout: 0,

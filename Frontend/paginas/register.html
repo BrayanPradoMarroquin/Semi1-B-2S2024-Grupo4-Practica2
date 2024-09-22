@@ -160,13 +160,7 @@
         <div class="col">
           <main class="form-signin w-100 m-auto">
             <form id="signupForm">
-              <img
-                class="mb-4"
-                src="../assets/brand/bootstrap-logo.svg"
-                alt=""
-                width="72"
-                height="57"
-              />
+              <h1>PhotoBucket</h1>
               <h1 class="h3 mb-3 fw-normal">Registre el usuario</h1>
 
               <div class="form-floating">
@@ -262,7 +256,7 @@
         reader.onloadend = function () {
           var avatarBase64 = reader.result.replace("data:image/jpeg;base64,", "");
           var settings = {
-            url: "http://localhost:4000/registro",
+            url: "http://balanceadorpractica2-564007876.us-east-1.elb.amazonaws.com/registro",
             method: "POST",
             timeout: 0,
             headers: {

@@ -218,7 +218,7 @@
       console.log(userId);
 
       var settings = {
-        url: "http://localhost:4000/album/obtener/" + userId,
+        url: "http://balanceadorpractica2-564007876.us-east-1.elb.amazonaws.com/album/obtener/" + userId,
         method: "GET",  // GET no requiere un cuerpo en la solicitud
         timeout: 0,
         headers: {
@@ -283,7 +283,7 @@
         reader.onloadend = function () {
           var avatarBase64 = reader.result.replace("data:image/jpeg;base64,", "");
           var settings = {
-            url: "http://localhost:4000/foto/subir/"+userId,
+            url: "http://balanceadorpractica2-564007876.us-east-1.elb.amazonaws.com/foto/subir/"+userId,
             method: "POST",
             timeout: 0,
             headers: {
