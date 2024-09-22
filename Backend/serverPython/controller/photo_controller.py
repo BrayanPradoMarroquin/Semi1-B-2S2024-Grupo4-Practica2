@@ -37,7 +37,7 @@ def uploadPicture(id):
         return {"status": 400, "mensaje": "Datos no encontrados"}
     
     # con el nombre de usuario, asignar nombre a la foto
-    url_foto = "https://practica2-g4-imagenes.s3.us-east-2.amazonaws.com/" + "fotos/" + nombre_usuario + nombre_foto + ".jpg"
+    url_foto = "https://practica2-g4-imagenes.s3.us-east-2.amazonaws.com/" + "Fotos_Publicadas/" + nombre_usuario + nombre_foto + ".jpg"
 
     # Subir al bucket S3
     # upload_file(foto, nombre_foto, nombre_usuario)

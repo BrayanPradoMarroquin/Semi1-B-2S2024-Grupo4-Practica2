@@ -21,8 +21,8 @@ const uploadPicture = async (req, res) => {
   }
 
   let url_foto =
-    "https://practica2-g4-imagenes.s3.us-east-2.amazonaws.com/" +
-    "fotos/" +
+    "https://practica2-semi1-b-2s2024-imageness-g4.s3.amazonaws.com/" +
+    "Fotos_Publicadas/" +
     nombre_usuario +
     nombre_foto +
     ".jpg";
