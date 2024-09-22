@@ -12,7 +12,7 @@ const uploadPicture = async (picture, nombre, usuario) => {
   let buffer = new Buffer.from(picture, "base64");
 
   const params = {
-    Bucket: "practica2-g4-practica2-semi1-b-2s2024-imageness-g4",
+    Bucket: "practica2-semi1-b-2s2024-imageness-g4",
     Key: pictureName,
     Body: buffer,
     ContentType: "image",
