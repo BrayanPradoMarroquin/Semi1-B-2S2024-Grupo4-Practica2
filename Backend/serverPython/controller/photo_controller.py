@@ -1,14 +1,13 @@
 import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-import base64
-import binascii
 from flask import request
 from serverPython.database.db import get_db_conn
 import json
 from serverPython.s3.s3 import upload_file
 
 def uploadPicture(id):
+    # nombre_foto, album, foto
     data = request.json
     nombre_foto = data.get('nombre_foto')
     album = data.get('album')
@@ -25,6 +24,8 @@ def uploadPicture(id):
     try:
         cursor = db_conn.cursor()
         cursor.execute(query)
+
+        # Fetch all result sets returned by the stored procedure
         result = cursor.fetchone()
         
         cursor.close()
@@ -35,20 +36,11 @@ def uploadPicture(id):
         print(error)
         return {"status": 400, "mensaje": "Datos no encontrados"}
     
-    # Construir la URL de la foto
-    url_foto = f"https://practica2-semi1-b-2s2024-imageness-g4.s3.amazonaws.com/Fotos_Publicadas/{nombre_usuario}{nombre_foto}.jpg"
-
-    # Eliminar el prefijo si existe
-    if foto.startswith("data:image/jpeg;base64,"):
-        foto = foto.replace("data:image/jpeg;base64,", "")
+    # con el nombre de usuario, asignar nombre a la foto
+    url_foto = "https://practica2-semi1-b-2s2024-imageness-g4.s3.amazonaws.com/" + "Fotos_Publicadas/" + nombre_usuario + nombre_foto + ".jpg"
 
     # Subir al bucket S3
-    try:
-        image_data = base64.b64decode(foto)  # Asegúrate de que la cadena esté en un formato correcto
-        upload_file(image_data, nombre_foto, nombre_usuario)
-    except (binascii.Error, ValueError) as e:
-        print(f"Error al decodificar base64: {e}")
-        return {"status": 400, "mensaje": "Error en la cadena base64"}
+    upload_file(foto, nombre_foto, nombre_usuario)
 
     query = f"CALL sp_foto({id}, '{album}', NULL, 'C', '{nombre_foto}', '{url_foto}', @codigo, @mensaje);"
     print(query)
@@ -57,6 +49,8 @@ def uploadPicture(id):
     try:
         cursor = db_conn.cursor()
         cursor.execute(query)
+
+        # por ultimo, obtener los valores de codigo y mensaje
         cursor.execute("SELECT @codigo, @mensaje;")
         result = cursor.fetchone()
         codigo = result[0]
@@ -68,27 +62,34 @@ def uploadPicture(id):
     except Exception as error: 
         print(error)
         return {"status": 400, "mensaje": "Error al subir la foto"}
+    
 
 def getPhotos(id):
     data = request.json
     id_album = data.get('id_album')
 
+    #query = f"CALL sp_foto({id}, {id_album}, NULL, 'R', NULL , NULL , @codigo, @mensaje);"
     query = f"SELECT id_foto, nombre_foto, url_foto FROM foto WHERE id_usuario = {id} AND id_album = {id_album};"
 
     db_conn = get_db_conn()
     try:
         cursor = db_conn.cursor()
         cursor.execute(query)
+
+        # Fetch all result sets returned by the stored procedure
         result_sets = cursor.fetchall()
         print("result sets: ", result_sets)
         
         cursor.close()
         db_conn.close()
 
+        # Convert result_sets to a list of dictionaries
         data = [{"id_foto": row[0], "nombre_foto": row[1], "url_foto": row[2]} for row in result_sets]
+
+        # Convert data to JSON format
         json_data = json.dumps(data, indent=4)
 
         return json_data
     except Exception as error: 
         print(error)
-        return {"status": 400, "mensaje": "No se pudo obtener la información."}
+        return {"status":400,"mensaje":"No se pudo obtener la informacion."}
