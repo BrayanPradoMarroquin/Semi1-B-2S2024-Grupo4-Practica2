@@ -40,7 +40,7 @@ def uploadPicture(id):
     url_foto = "https://practica2-semi1-b-2s2024-imageness-g4.s3.amazonaws.com/" + "Fotos_Publicadas/" + nombre_usuario + nombre_foto + ".jpg"
 
     # Subir al bucket S3
-    # upload_file(foto, nombre_foto, nombre_usuario)
+    upload_file(foto, nombre_foto, nombre_usuario)
 
     query = f"CALL sp_foto({id}, '{album}', NULL, 'C', '{nombre_foto}', '{url_foto}', @codigo, @mensaje);"
     print(query)

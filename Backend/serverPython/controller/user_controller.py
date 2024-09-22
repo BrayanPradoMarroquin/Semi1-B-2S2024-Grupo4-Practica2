@@ -60,7 +60,7 @@ def register():
     url_foto = "https://practica2-semi1-b-2s2024-imageness-g4.s3.amazonaws.com/" + "Fotos_Perfil/" + user + nombre_foto + ".jpg"
 
     # Subir al bucket S3
-    # upload_file(url, nombre_foto, user)
+    upload_file(url, nombre_foto, user)
 
     print(user, name, password, url)
     query = f"call sp_usuario(@mensaje, NULL, '{user}', '{name}', '{password}', '{url_foto}', 'C');"
