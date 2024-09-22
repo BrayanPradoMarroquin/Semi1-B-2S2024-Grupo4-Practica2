@@ -160,13 +160,7 @@
         <div class="col">
           <main class="form-signin w-100 m-auto">
             <div id="signupForm">
-              <img
-                class="mb-4"
-                src="../assets/brand/bootstrap-logo.svg"
-                alt=""
-                width="72"
-                height="57"
-              />
+              <h1>PhotoBucket</h1>
               <h1 class="h3 mb-3 fw-normal">Perfil</h1>
 
               <div class="form-floating">
@@ -253,7 +247,7 @@
 
       // Verificar si el valor existe y no es nulo
       if (userId) {
-        var url = "http://localhost:4000/perfil/" + userId;
+        var url = "http://balanceadorpractica2-564007876.us-east-1.elb.amazonaws.com/perfil/" + userId;
 
         var settings = {
           "url": url,
