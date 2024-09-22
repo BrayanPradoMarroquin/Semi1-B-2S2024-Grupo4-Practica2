@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="auto">
+  <head>
+    <script src="../assets/js/color-modes.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+    <meta
+      name="author"
+      content="Mark Otto, Jacob Thornton, and Bootstrap contributors"
+    />
+    <meta name="generator" content="Hugo 0.122.0" />
+    <title>Album example · Bootstrap v5.3</title>
+
+    <link
+      rel="canonical"
+      href="https://getbootstrap.com/docs/5.3/examples/album/"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@docsearch/css@3"
+    />
+
+    <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+      .b-example-divider {
+        width: 100%;
+        height: 3rem;
+        background-color: rgba(0, 0, 0, 0.1);
+        border: solid rgba(0, 0, 0, 0.15);
+        border-width: 1px 0;
+        box-shadow: inset 0 0.5em 1.5em rgba(0, 0, 0, 0.1),
+          inset 0 0.125em 0.5em rgba(0, 0, 0, 0.15);
+      }
+
+      .b-example-vr {
+        flex-shrink: 0;
+        width: 1.5rem;
+        height: 100vh;
+      }
+
+      .bi {
+        vertical-align: -0.125em;
+        fill: currentColor;
+      }
+
+      .nav-scroller {
+        position: relative;
+        z-index: 2;
+        height: 2.75rem;
+        overflow-y: hidden;
+      }
+
+      .nav-scroller .nav {
+        display: flex;
+        flex-wrap: nowrap;
+        padding-bottom: 1rem;
+        margin-top: -1px;
+        overflow-x: auto;
+        text-align: center;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .btn-bd-primary {
+        --bd-violet-bg: #712cf9;
+        --bd-violet-rgb: 112.520718, 44.062154, 249.437846;
+
+        --bs-btn-font-weight: 600;
+        --bs-btn-color: var(--bs-white);
+        --bs-btn-bg: var(--bd-violet-bg);
+        --bs-btn-border-color: var(--bd-violet-bg);
+        --bs-btn-hover-color: var(--bs-white);
+        --bs-btn-hover-bg: #6528e0;
+        --bs-btn-hover-border-color: #6528e0;
+        --bs-btn-focus-shadow-rgb: var(--bd-violet-rgb);
+        --bs-btn-active-color: var(--bs-btn-hover-color);
+        --bs-btn-active-bg: #5a23c8;
+        --bs-btn-active-border-color: #5a23c8;
+      }
+
+      .bd-mode-toggle {
+        z-index: 1500;
+      }
+
+      .bd-mode-toggle .dropdown-menu .active .bi {
+        display: block !important;
+      }
+    </style>
+  </head>
+  <body class="align-items-center py-12 bg-body-tertiary">
+    <div class="row justify-content-center">
+      <div class="col-4">
+        <div id="imagePreviewContainer" class="mt-3">
+          <img
+            id="imagePreview"
+            src="#"
+            alt="Vista previa de la imagen"
+            style="max-width: 100%;"
+          />
+        </div>
+      </div>
+    <div class="col-6">
+    <main>
+      <div class="album py-5 bg-body-tertiary">
+        <div class="container">
+          <div class="accordion accordion-flush" id="myAccordion"></div>
+        </div>
+      </div>
+    </main>
+  </div>
+    </div>
+    <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    
+    $(document).ready(function () {
+  // Obtener el valor del local storage
+  var userId = localStorage.getItem("id_usuario");
+  console.log(userId);
+
+  // Verificar si el valor existe y no es nulo
+  if (userId) {
+    var url = "http://localhost:4000/album/obtener/" + userId;
+
+    var settings = {
+      url: url,
+      method: "GET",
+      timeout: 0,
+    };
+
+    $.ajax(settings)
+      .done(function (response) {
+        // Asegúrate de que la respuesta se esté tratando como JSON
+        if (typeof response === "string") {
+          response = JSON.parse(response);
+        }
+
+        const accordionContainer = document.getElementById("myAccordion");
+
+        // Limpiar el contenedor del acordeón antes de agregar nuevos elementos
+        accordionContainer.innerHTML = "";
+
+        // Crear los elementos dinámicamente
+        response.forEach((dato) => {
+          const accordionItem = document.createElement("div");
+          accordionItem.classList.add("accordion-item");
+
+          const accordionHeader = document.createElement("h2");
+          accordionHeader.classList.add("accordion-header");
+          accordionHeader.innerHTML = `
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${dato.id_album}" aria-expanded="false" aria-controls="collapse${dato.id_album}">
+              ${dato.nombre ? dato.nombre : "Sin nombre"}
+            </button>
+          `;
+
+          // Crear el contenido colapsable del acordeón
+          const accordionCollapse = document.createElement("div");
+          accordionCollapse.id = `collapse${dato.id_album}`;
+          accordionCollapse.classList.add("accordion-collapse", "collapse");
+          accordionCollapse.setAttribute(
+            "aria-labelledby",
+            `heading${dato.id_album}`
+          );
+          accordionCollapse.setAttribute("data-bs-parent", "#myAccordion");
+
+          const accordionBody = document.createElement("div");
+          accordionBody.classList.add("accordion-body");
+          accordionBody.textContent = `Cargando fotos para el álbum: ${dato.nombre || "Sin nombre"}...`;
+
+          // Añadir el cuerpo del acordeón al colapsable
+          accordionCollapse.appendChild(accordionBody);
+
+          // Añadir el encabezado y el colapsable al item del acordeón
+          accordionItem.appendChild(accordionHeader);
+          accordionItem.appendChild(accordionCollapse);
+
+          // Añadir el item del acordeón al contenedor del acordeón
+          accordionContainer.appendChild(accordionItem);
+
+          // Hacer la segunda petición AJAX para obtener las fotos del álbum
+          var fotoSettings = {
+            url: "http://localhost:4000/foto/obtener/" + userId,
+            method: "POST",
+            timeout: 0,
+            headers: {
+              "Content-Type": "application/json",
+            },
+            data: JSON.stringify({
+              id_album: dato.id_album,
+            }),
+          };
+
+          $.ajax(fotoSettings)
+  .done(function (fotoResponse) {
+    console.log("fotoresponse", fotoResponse);
+
+    // Comprobar si la respuesta es un string y parsearlo a JSON si es necesario
+    if (typeof fotoResponse === "string") {
+      try {
+        fotoResponse = JSON.parse(fotoResponse);
+      } catch (error) {
+        console.error("Error al parsear la respuesta de fotos:", error);
+        accordionBody.innerHTML = "<p>Error al procesar las fotos.</p>";
+        return;
+      }
+    }
+
+    // Verificar si fotoResponse es un array
+    if (!Array.isArray(fotoResponse)) {
+      console.error("La respuesta de fotos no es un array:", fotoResponse);
+      accordionBody.innerHTML = "<p>No se pudieron cargar las fotos.</p>";
+      return;
+    }
+
+    // Crear contenido para el cuerpo del acordeón basado en las fotos recibidas
+    var bodyContent = `
+      <div class="album py-5 bg-body-tertiary">
+        <div class="container">
+          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">`;
+
+    // Agregar cada foto al contenido
+    fotoResponse.forEach((foto) => {
+      bodyContent += `
+        <div class="col">
+          <div class="card shadow-sm">
+            <img class="bd-placeholder-img card-img-top" width="100%" height="225" src="${foto.url_foto}" alt="${foto.nombre_foto || 'Sin nombre'}">
+            <div class="card-body">
+              <p class="card-text">${foto.nombre_foto || "Sin nombre"}</p>
+              <div class="d-flex justify-content-between align-items-center">
+              </div>
+            </div>
+          </div>
+        </div>`;
+    });
+
+    bodyContent += `
+          </div>
+        </div>
+      </div>`;
+
+    console.log("Esto es foto ", bodyContent);
+
+    // Reemplazar el contenido del cuerpo del acordeón con las fotos
+    accordionBody.innerHTML = bodyContent;
+  })
+  .fail(function (error) {
+    console.error("Error al cargar fotos:", error);
+    accordionBody.innerHTML = "<p>Error al cargar las fotos.</p>";
+  });
+        });
+      })
+      .fail(function (error) {
+        console.error("Error al cargar álbumes:", error);
+      });
+  } else {
+    console.error("No se encontró el valor de userId en el almacenamiento local.");
+  }
+});
+
+
+      function previewImage() {
+        var fileInput = document.getElementById("avatarFile");
+        var file = fileInput.files[0];
+
+        if (file) {
+          var reader = new FileReader();
+          reader.onload = function (e) {
+            var imagePreview = document.getElementById("imagePreview");
+            imagePreview.src = e.target.result;
+          };
+          reader.readAsDataURL(file);
+        }
+      }
+    </script>
+
+<script>
+  $(document).ready(function() {
+    // Obtener el valor del local storage
+    var userId = localStorage.getItem('id_usuario');
+
+    // Verificar si el valor existe y no es nulo
+    if (userId) {
+      var url = "http://localhost:4000/perfil/" + userId;
+
+      var settings = {
+        "url": url,
+        "method": "GET",
+        "timeout": 0,
+      };
+
+      $.ajax(settings).done(function (response) {
+        console.log(response);
+        $('#username').val(response.p_usuario);
+          $('#name').val(response.p_nombre_completo);
+          $('#imagePreview').attr('src', response.p_url_foto);
+        // Aquí puedes manejar la respuesta como desees
+        // Por ejemplo, puedes actualizar el contenido de algún elemento HTML con la respuesta
+        // Ejemplo: $('#responseModalBody').html(response);
+        
+      });
+    } else {
+      console.error('No se encontró el valor de userId en el almacenamiento local.');
+    }
+  });
+</script>
+  </body>
+</html>

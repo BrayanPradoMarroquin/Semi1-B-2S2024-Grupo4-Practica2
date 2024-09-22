@@ -1,0 +1,70 @@
+/* Login.css */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f9f9f9;
+  }
+  
+  .login-card-horizontal {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    width: 700px;
+  }
+  
+  .login-section {
+    width: 50%;
+  }
+  
+  .p-field {
+    margin-bottom: 1.5rem;
+  }
+  
+  .p-field label {
+    font-weight: bold;
+  }
+  
+  .p-field input,
+  .p-password-input {
+    width: 100%;
+  }
+  
+  .register-btn {
+    margin-top: 1rem;
+  }
+  
+  .divider-vertical {
+    width: 1px;
+    background-color: #ddd;
+    height: 100%;
+    margin: 0 2rem;
+  }
+  
+  button {
+    width: 100%;
+    margin-top: 1rem;
+  }
+  
+  .camera-container {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+  }
+  
+  
+.camera-feed {
+  width: 100%;
+  height: auto;
+  border: 2px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transform: scaleX(-1); /* Modo espejo */
+}
+
+  
