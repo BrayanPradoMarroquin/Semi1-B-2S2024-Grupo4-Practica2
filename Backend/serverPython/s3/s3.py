@@ -4,9 +4,11 @@ from botocore.exceptions import ClientError
 import os
 import base64
 
+# aqui tambien os.environ['AWS_ACCESS_KEY_ID']
+# aqui van las claves os.environ['AWS_SECRET_ACCESS_KEY']
 
 def upload_file(picture, nombre, usuario):
-    pictureName = "fotos/" + usuario + nombre + ".jpg"
+    pictureName = "Fotos_Perfil/" + usuario + nombre + ".jpg"
     
 
     """Upload a file to an S3 bucket
@@ -22,7 +24,7 @@ def upload_file(picture, nombre, usuario):
     # Subir la imagen a S3
     s3 = boto3.client('s3')
     try:
-        s3.put_object(Bucket="practica2-g4-imagenes", 
+        s3.put_object(Bucket="practica2-semi1-b-2s2024-imageness-g4", 
                       Key=pictureName, 
                       Body=image_data,
                       ContentType= 'image')

@@ -3,17 +3,16 @@ const { DatabaseError } = require("pg");
 require("dotenv").config();
 
 const s3 = new aws.S3({
-  region: process.env.AWS_REGION,
-  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  //accessKeyId: ,
+  // secretAccessKey: ,
 });
 
 const uploadPicture = async (picture, nombre, usuario) => {
-  var pictureName = "fotos/" + usuario + nombre + ".jpg";
+  var pictureName = "Fotos_Publicadas/" + usuario + nombre + ".jpg";
   let buffer = new Buffer.from(picture, "base64");
 
   const params = {
-    Bucket: "practica2-g4-imagenes",
+    Bucket: "practica2-g4-practica2-semi1-b-2s2024-imageness-g4",
     Key: pictureName,
     Body: buffer,
     ContentType: "image",
@@ -24,10 +23,10 @@ const uploadPicture = async (picture, nombre, usuario) => {
 };
 
 const getPicture = async (nombre, usuario) => {
-  var pictureName = "fotos/" + usuario + nombre + ".jpg";
+  var pictureName = "Fotos_Publicadas/" + usuario + nombre + ".jpg";
 
   const getparams = {
-    Bucket: "practica2-g4-imagenes",
+    Bucket: "practica2-semi1-b-2s2024-imageness-g4",
     Key: pictureName,
   };
 

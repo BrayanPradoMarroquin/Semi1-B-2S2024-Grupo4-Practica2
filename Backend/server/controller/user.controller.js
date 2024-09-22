@@ -65,14 +65,14 @@ const register = async (req, res) => {
   nombre_foto = "FotoDePerfil1";
 
   let url_foto =
-    "https://practica2-g4-imagenes.s3.us-east-2.amazonaws.com/" +
-    "fotos/" +
+    "https://practica2-semi1-b-2s2024-imageness-g4.s3.amazonaws.com/" +
+    "Fotos_Perfil/" +
     user +
     nombre_foto +
     ".jpg";
 
   // BUCKET S3
-  //   s3.uploadPicture(url, nombre_foto, user);
+  s3.uploadPicture(url, nombre_foto, user);
 
   const pass = md5(password);
   console.log("pass " + pass);
